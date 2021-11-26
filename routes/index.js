@@ -44,7 +44,7 @@ const read = (res) => {
     if (err) {
       res.json({ Error: err })
     } else {
-      res.json(JSON.parse(data))
+      res.json({data: data})
     }
   });
 }
