@@ -53,7 +53,7 @@ const writer = (req) => {
 
 
 
-  fs.writeFile('2pac.txt', `${JSON.stringify(req.body)}  ------>`, (err) => {
+  fs.writeFile('2pac.txt', JSON.stringify(req.body), (err) => {
     if (err) throw err;
     // success case, the file was saved
     console.log('Lyric saved!');
