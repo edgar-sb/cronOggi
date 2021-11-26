@@ -5,13 +5,13 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', async function (req, res, next) {
 
-  let order_id = req.body.archivo ? JSON.parse(req.body.archivo).OrderId : '1179132331084-01'
+  let origin = JSON.parse(req.body.archivo) 
 
   writer(req);
 
   var config = {
     method: 'get',
-    url: `http://54.227.217.31:3000/cartaporteById?id=${order_id}`,
+    url: `http://54.227.217.31:3000/cartaporteById?id=${origin.OrderId}`,
     headers: {}
   };
 
@@ -45,7 +45,7 @@ const writer = (req) => {
 
 
 
-  fs.writeFile('2pac.txt', JSON.stringify(req.body), (err) => {
+  fs.writeFile('2pac.txt', `${JSON.stringify(req.body)}  ------>`, (err) => {
     if (err) throw err;
     // success case, the file was saved
     console.log('Lyric saved!');
@@ -53,7 +53,7 @@ const writer = (req) => {
 }
 
 router.get('/j', (req, res) => {
-  var x = "{\"Domain\":\"Fulfillment\",\"OrderId\":\"1179152839332-01\",\"State\":\"handling\",\"LastState\":\"start-handling\",\"LastChange\":\"2021-11-26T19:39:30.0148602Z\",\"CurrentChange\":\"2021-11-26T19:39:30.7492414Z\",\"Origin\":{\"Account\":\"oggimexicoqa\",\"Key\":\"vtexappkey-oggimexicoqa-VMAZLZ\"}}"
-  console.log(JSON.parse(x).OrderId)
+  let xx = {"archivo":"{\"Domain\":\"Fulfillment\",\"OrderId\":\"1179162701790-01\",\"State\":\"handling\",\"LastState\":\"start-handling\",\"LastChange\":\"2021-11-26T19:47:45.6288233Z\",\"CurrentChange\":\"2021-11-26T19:47:46.2720515Z\",\"Origin\":{\"Account\":\"oggimexicoqa\",\"Key\":\"vtexappkey-oggimexicoqa-VMAZLZ\"}}"}
+  console.log(JSON.parse(xx.archivo).OrderId)
 })
 module.exports = router
