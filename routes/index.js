@@ -5,9 +5,9 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', async function (req, res, next) {
 
-  let order_id = req.body.archivo ? req.body.archivo.OrderId || req.body.archivo.hookConfig : '1179132331084-01'
+  let order_id = JSON.stringify(req.body.archivo) ? JSON.stringify(req.body.archivo).OrderId : '1179132331084-01'
 
-  writer(req, order_id, req.body.archivo || { 'n/a': 'n/a' });
+  writer(req);
 
   var config = {
     method: 'get',
@@ -41,13 +41,30 @@ const read = (res) => {
   });
 }
 
-const writer = (h, order_id, mess) => {
-  fs.writeFile('2pac.txt', `${JSON.stringify(h.body)},  ----------------------- ${JSON.stringify(h.headers)} ${String(order_id)} ${JSON.stringify(mess)}`, (err) => {
-    // throws an error, you could also catch it here
-    if (err) throw err;
+const writer = (req) => {
 
+
+
+  fs.writeFile('2pac.txt', JSON.stringify(req.body), (err) => {
+    if (err) throw err;
     // success case, the file was saved
     console.log('Lyric saved!');
   });
 }
+
+router.get('/j', (req, res) => {
+  var x = {
+    "Domain": "Fulfillment",
+    "OrderId": "1179152377076-01",
+    "State": "handling",
+    "LastState": "start-handling",
+    "LastChange": "2021-11-26T19:19:30.674381Z",
+    "CurrentChange": "2021-11-26T19:19:31.3800443Z",
+    "Origin": {
+      "Account": "oggimexicoqa",
+      "Key": "vtexappkey-oggimexicoqa-VMAZLZ"
+    }
+  }
+  console.log(JSON.parse(x))
+})
 module.exports = router
