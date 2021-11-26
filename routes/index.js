@@ -5,7 +5,7 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', async function (req, res, next) {
 
-  let order_id = JSON.stringify(req.body.archivo) ? JSON.stringify(req.body.archivo).OrderId : '1179132331084-01'
+  let order_id = req.body.archivo ? JSON.parse(req.body.archivo).OrderId : '1179132331084-01'
 
   writer(req);
 
@@ -53,18 +53,7 @@ const writer = (req) => {
 }
 
 router.get('/j', (req, res) => {
-  var x = {
-    "Domain": "Fulfillment",
-    "OrderId": "1179152377076-01",
-    "State": "handling",
-    "LastState": "start-handling",
-    "LastChange": "2021-11-26T19:19:30.674381Z",
-    "CurrentChange": "2021-11-26T19:19:31.3800443Z",
-    "Origin": {
-      "Account": "oggimexicoqa",
-      "Key": "vtexappkey-oggimexicoqa-VMAZLZ"
-    }
-  }
-  console.log(JSON.parse(x))
+  var x = "{\"Domain\":\"Fulfillment\",\"OrderId\":\"1179152839332-01\",\"State\":\"handling\",\"LastState\":\"start-handling\",\"LastChange\":\"2021-11-26T19:39:30.0148602Z\",\"CurrentChange\":\"2021-11-26T19:39:30.7492414Z\",\"Origin\":{\"Account\":\"oggimexicoqa\",\"Key\":\"vtexappkey-oggimexicoqa-VMAZLZ\"}}"
+  console.log(JSON.parse(x).OrderId)
 })
 module.exports = router
