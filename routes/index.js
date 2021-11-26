@@ -3,15 +3,11 @@ var router = express.Router();
 var axios = require('axios');
 var fs = require('fs')
 /* GET home page. */
-router.post('/oggihook', function (req, res, next) {
-  let order = req
+router.post('/oggihook', async function (req, res, next) {
 
-  let order_id = '1179120508091-01'
+  let order_id = req.body.archivo ? req.body.archivo.OrderId || req.body.archivo.hookConfig : '1179132331084-01'
 
-  if(req.body.archivo){
-    order_id = req.body.archivo.OrderId
-  }
-  writer(order);
+  writer(req, order_id, req.body.archivo || { 'n/a': 'n/a' });
 
   var config = {
     method: 'get',
@@ -19,13 +15,16 @@ router.post('/oggihook', function (req, res, next) {
     headers: {}
   };
 
-  axios(config)
+  let r = await axios(config)
     .then(function (response) {
-      res.json({ "message": "Hello" })
+      return response
     })
     .catch(function (error) {
-      console.log(error);
+      return error
     });
+
+  console.log(r)
+  res.json({ "message": "Hello" })
 });
 
 router.get('/', function (req, res, next) {
@@ -42,8 +41,8 @@ const read = (res) => {
   });
 }
 
-const writer = (h) => {
-  fs.writeFile('2pac.txt', `${JSON.stringify(h.body)},  ----------------------- ${JSON.stringify(h.headers)}` , (err) => {
+const writer = (h, order_id, mess) => {
+  fs.writeFile('2pac.txt', `${JSON.stringify(h.body)},  ----------------------- ${JSON.stringify(h.headers)} ${String(order_id)} ${JSON.stringify(mess)}`, (err) => {
     // throws an error, you could also catch it here
     if (err) throw err;
 
