@@ -5,25 +5,32 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', async function (req, res, next) {
 
-  let origin = JSON.parse(req.body.archivo)
-  let id = origin.OrderId
+  var origin = req.body.archivo
+  
   writer(req);
 
-  var config = {
-    method: 'get',
-    url: `http://54.227.217.31:3000/cartaporteById?id=${origin.OrderId}`,
-    headers: {}
-  };
+  
 
-  if (id) {
-    let r = await axios(config)
-      .then(function (response) {
-        return response
-      })
-      .catch(function (error) {
-        return error
-      });
+  if(origin){
+    var id = JSON.parse(origin)
+    if (id) {
+      let ids = id.OrderId
+      var config = {
+        method: 'get',
+        url: `http://54.227.217.31:3000/cartaporteById?id=${ids}`,
+        headers: {}
+      };
+      
+      let r = await axios(config)
+        .then(function (response) {
+          return response
+        })
+        .catch(function (error) {
+          return error
+        });
+    }
   }
+  
   
   res.json({ "message": "Hello" })
 });

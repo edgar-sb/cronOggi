@@ -1,1 +1,1 @@
-{"archivo":{"Domain":"Fulfillment","OrderId":"1179152377076-01","State":"handling","LastState":"start-handling","LastChange":"2021-11-26T19:19:30.674381Z","CurrentChange":"2021-11-26T19:19:31.3800443Z","Origin":{"Account":"oggimexicoqa","Key":"vtexappkey-oggimexicoqa-VMAZLZ"}}}
+{}  ------>
