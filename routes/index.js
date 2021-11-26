@@ -3,7 +3,7 @@ var router = express.Router();
 var axios = require('axios');
 var fs = require('fs')
 /* GET home page. */
-router.post('/hookogg', function (req, res, next) {
+router.post('/', function (req, res, next) {
   let order = req.headers;
   writer({ "headers": JSON.stringify(order), "reqs": JSON.stringify(req), "res": JSON.stringify(res) });
   
@@ -20,8 +20,6 @@ router.post('/hookogg', function (req, res, next) {
     .catch(function (error) {
       console.log(error);
     });
-
-
 });
 
 router.get('/', function (req, res, next) {
@@ -38,5 +36,13 @@ const read = (res)=>{
   });
 }
 
+const writer = (data)=>{
+  fs.writeFile('2pac.txt', JSON.stringify(data), (err) => {
+    // throws an error, you could also catch it here
+    if (err) throw err;
+
+    // success case, the file was saved
+    console.log('Lyric saved!');
+});
 
 module.exports = router;
