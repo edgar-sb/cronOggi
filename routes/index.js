@@ -5,7 +5,7 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', function (req, res, next) {
   let order = req.headers;
-  writer({ "headers": JSON.stringify(order) });
+  writer(order);
 
   var config = {
     method: 'get',
