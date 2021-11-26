@@ -6,8 +6,11 @@ var fs = require('fs')
 router.post('/oggihook', function (req, res, next) {
   let order = req
 
-  let order_id = req.body.archivo.OrderId ? req.body.archivo.OrderId : '0000000000000-01'
+  let order_id = '00000-01'
 
+  if(req.body.archivo){
+    order_id = req.body.archivo.OrderId
+  }
   writer(order);
 
   var config = {
