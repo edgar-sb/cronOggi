@@ -11,13 +11,16 @@ router.get('/hookogg', function (req, res, next) {
     headers: {}
   };
 
-  axios(config)
-    .then(function (response) {
-      res.json({ "message": "Hello" })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  res.json({ "message": "Hello" })
+  
+
+  // axios(config)
+  //   .then(function (response) {
+  //     res.json({ "message": "Hello" })
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
 
  
 });
