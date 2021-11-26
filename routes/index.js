@@ -5,8 +5,8 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', async function (req, res, next) {
 
-  let origin = JSON.parse(req.body.archivo) 
-
+  let origin = JSON.parse(req.body.archivo)
+  let id = origin.OrderId
   writer(req);
 
   var config = {
@@ -15,15 +15,16 @@ router.post('/oggihook', async function (req, res, next) {
     headers: {}
   };
 
-  let r = await axios(config)
-    .then(function (response) {
-      return response
-    })
-    .catch(function (error) {
-      return error
-    });
-
-  console.log(r)
+  if (id) {
+    let r = await axios(config)
+      .then(function (response) {
+        return response
+      })
+      .catch(function (error) {
+        return error
+      });
+  }
+  
   res.json({ "message": "Hello" })
 });
 
@@ -36,7 +37,7 @@ const read = (res) => {
     if (err) {
       res.json({ Error: err })
     } else {
-      res.json( JSON.parse(data) )
+      res.json(JSON.parse(data))
     }
   });
 }
@@ -53,7 +54,7 @@ const writer = (req) => {
 }
 
 router.get('/j', (req, res) => {
-  let xx = {"archivo":"{\"Domain\":\"Fulfillment\",\"OrderId\":\"1179162701790-01\",\"State\":\"handling\",\"LastState\":\"start-handling\",\"LastChange\":\"2021-11-26T19:47:45.6288233Z\",\"CurrentChange\":\"2021-11-26T19:47:46.2720515Z\",\"Origin\":{\"Account\":\"oggimexicoqa\",\"Key\":\"vtexappkey-oggimexicoqa-VMAZLZ\"}}"}
+  let xx = { "archivo": "{\"Domain\":\"Fulfillment\",\"OrderId\":\"1179162701790-01\",\"State\":\"handling\",\"LastState\":\"start-handling\",\"LastChange\":\"2021-11-26T19:47:45.6288233Z\",\"CurrentChange\":\"2021-11-26T19:47:46.2720515Z\",\"Origin\":{\"Account\":\"oggimexicoqa\",\"Key\":\"vtexappkey-oggimexicoqa-VMAZLZ\"}}" }
   console.log(JSON.parse(xx.archivo).OrderId)
 })
 module.exports = router
