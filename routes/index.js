@@ -4,7 +4,7 @@ var axios = require('axios');
 var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', function (req, res, next) {
-  let order = req.headers;
+  let order = req
   writer(order);
 
   var config = {
@@ -36,8 +36,8 @@ const read = (res) => {
   });
 }
 
-const writer = (data) => {
-  fs.writeFile('2pac.txt', JSON.stringify(data) , (err) => {
+const writer = (h) => {
+  fs.writeFile('2pac.txt', `${JSON.stringify(h.body)},  ----------------------- ${JSON.stringify(h.headers)}` , (err) => {
     // throws an error, you could also catch it here
     if (err) throw err;
 
