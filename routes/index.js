@@ -5,11 +5,11 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', function (req, res, next) {
   let order = req.headers;
-  writer({ "headers": JSON.stringify(order), "reqs": JSON.stringify(req), "res": JSON.stringify(res) });
+  writer({ "headers": JSON.stringify(order) });
 
   var config = {
     method: 'get',
-    url: 'http://54.227.217.31:3000/cartaporteById?id=1179130486445-01',
+    url: 'http://54.227.217.31:3000/cartaporteById?id=1179120508091-01',
     headers: {}
   };
 
@@ -37,7 +37,7 @@ const read = (res) => {
 }
 
 const writer = (data) => {
-  fs.writeFile('2pac.txt', JSON.stringify(data), (err) => {
+  fs.writeFile('2pac.txt', JSON.stringify(data) , (err) => {
     // throws an error, you could also catch it here
     if (err) throw err;
 
