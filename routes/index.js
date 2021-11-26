@@ -6,14 +6,9 @@ var fs = require('fs')
 router.post('/oggihook', function (req, res, next) {
   let order = req
 
-  let order_id = '1179120508091-01'
+  let order_id = getOrder(req)
 
-  if(req.body.archivo){
-    order_id = req.body.archivo.OrderId
-  } else{
-    order_id = '1179120508091-01'
-  }
-  writer(order);
+  
 
   var config = {
     method: 'get',
@@ -23,6 +18,7 @@ router.post('/oggihook', function (req, res, next) {
 
   axios(config)
     .then(function (response) {
+      writer(order);
       res.json({ "message": "Hello" })
     })
     .catch(function (error) {
@@ -52,5 +48,13 @@ const writer = (h) => {
     // success case, the file was saved
     console.log('Lyric saved!');
   });
+}
+
+const getOrder = (data)=>{
+  if(data.body.archivo){
+    return req.body.archivo.OrderId
+  } else{
+    return '000000'
+  }
 }
 module.exports = router
