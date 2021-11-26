@@ -5,11 +5,13 @@ var fs = require('fs')
 /* GET home page. */
 router.post('/oggihook', function (req, res, next) {
   let order = req
+
+  let order_id = req.body.archivo.OrderId || '1179120508091-01'
   writer(order);
 
   var config = {
     method: 'get',
-    url: 'http://54.227.217.31:3000/cartaporteById?id=1179120508091-01',
+    url: `http://54.227.217.31:3000/cartaporteById?id=${order_id}`,
     headers: {}
   };
 
