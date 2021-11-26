@@ -3,7 +3,7 @@ var router = express.Router();
 var axios = require('axios');
 var fs = require('fs')
 /* GET home page. */
-router.post('/', function (req, res, next) {
+router.post('/oggihook', function (req, res, next) {
   let order = req.headers;
   writer({ "headers": JSON.stringify(order), "reqs": JSON.stringify(req), "res": JSON.stringify(res) });
 
