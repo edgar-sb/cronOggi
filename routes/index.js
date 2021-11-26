@@ -6,12 +6,12 @@ var fs = require('fs')
 router.post('/oggihook', function (req, res, next) {
   let order = req
 
-  let order_id = ''
+  let order_id = '1179120508091-01'
 
   if(req.body.archivo){
     order_id = req.body.archivo.OrderId
   } else{
-    order_id = '0000000000-0'
+    order_id = '1179120508091-01'
   }
   writer(order);
 
@@ -53,5 +53,4 @@ const writer = (h) => {
     console.log('Lyric saved!');
   });
 }
-
 module.exports = router
