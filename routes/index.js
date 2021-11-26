@@ -6,9 +6,14 @@ var fs = require('fs')
 router.post('/oggihook', function (req, res, next) {
   let order = req
 
-  let order_id = getOrder(req)
+  let order_id = ''
 
-  
+  if(req.body.archivo){
+    order_id = req.body.archivo.OrderId
+  } else{
+    order_id = '0000000000-0'
+  }
+  writer(order);
 
   var config = {
     method: 'get',
@@ -18,7 +23,6 @@ router.post('/oggihook', function (req, res, next) {
 
   axios(config)
     .then(function (response) {
-      writer(order);
       res.json({ "message": "Hello" })
     })
     .catch(function (error) {
@@ -50,11 +54,4 @@ const writer = (h) => {
   });
 }
 
-const getOrder = (data)=>{
-  if(data.body.archivo){
-    return req.body.archivo.OrderId
-  } else{
-    return '000000'
-  }
-}
 module.exports = router
