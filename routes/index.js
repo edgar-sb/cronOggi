@@ -6,13 +6,8 @@ var fs = require('fs')
 router.post('/oggihook', function (req, res, next) {
   let order = req
 
-  let order_id = req.body.archivo ? req.body.archivo.OrderId : '1179120508091-01'
+  let order_id = req.body.archivo ? req.body.archivo.OrderId : '0000000000000-01'
 
-  if(req.body.archivo){
-    order_id = req.body.archivo.OrderId
-  } else{
-    order_id = '000000000000-01'
-  }
   writer(order);
 
   var config = {
