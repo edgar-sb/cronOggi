@@ -6,32 +6,25 @@ var fs = require('fs')
 router.post('/oggihook', async function (req, res, next) {
 
   var origin = req.body.archivo
-  
+
   writer(req);
 
-  
+  let OrderId = req.body.OrderId || '1179152377076-01'
 
-  if(origin){
-    var id = JSON.parse(origin)
-    if (id) {
-      let ids = id.OrderId
-      var config = {
-        method: 'get',
-        url: `http://54.227.217.31:3000/cartaporteById?id=${ids}`,
-        headers: {}
-      };
-      
-      let r = await axios(config)
-        .then(function (response) {
-          return response
-        })
-        .catch(function (error) {
-          return error
-        });
-    }
-  }
-  
-  
+  var config = {
+    method: 'get',
+    url: `http://54.227.217.31:3000/cartaporteById?id=${OrderId}`,
+    headers: {}
+  };
+
+  let r = await axios(config)
+    .then(function (response) {
+      return response
+    })
+    .catch(function (error) {
+      return error
+    });
+
   res.json({ "message": "Hello" })
 });
 
@@ -44,7 +37,7 @@ const read = (res) => {
     if (err) {
       res.json({ Error: err })
     } else {
-      res.json({data: data})
+      res.json({ data: data })
     }
   });
 }
