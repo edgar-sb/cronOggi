@@ -3,7 +3,7 @@ var router = express.Router();
 var axios = require('axios');
 
 /* GET home page. */
-router.get('/hookogg', function (req, res, next) {
+router.post('/hookogg', function (req, res, next) {
   let order = req.headers['order_id'];
   var config = {
     method: 'get',
